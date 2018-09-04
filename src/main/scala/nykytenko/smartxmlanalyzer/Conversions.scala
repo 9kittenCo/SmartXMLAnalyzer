@@ -9,8 +9,11 @@ object Conversions {
   }
 
   implicit class ConvertNodeToString(node: Node) {
-    def toShow: String = s"${node.label}${node.attribute("class").getOrElse("")}"
+    def toShow: String = {
+      val description = node.attribute("class") match {
+        case Some(seq) => s" class='$seq'"
+        case None      => ""
+      }
+      s"${node.label}$description"}
   }
-
-
 }
